@@ -1,3 +1,18 @@
-let operations = []; // This will hold our financial operations
+class FinancialOperations {
+    constructor() {
+        this.operations = [];
+    }
 
-module.exports = operations;
+    getAll() {
+        return this.operations;
+    }
+
+    add(operation) {
+        operation.id = this.operations.length + 1;  // Simple ID based on length, not ideal for production
+        this.operations.push(operation);
+        return operation;
+    }
+}
+
+module.exports = new FinancialOperations();  // Export as a singleton
+

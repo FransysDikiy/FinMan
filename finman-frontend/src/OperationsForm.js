@@ -8,32 +8,30 @@ function OperationsForm({ onAddOperation }) {
         currency: ''
     });
 
-    const handleSubmit = async (event) => {
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setOperation(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:3001/api/operations', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(operation)
-        });
-        if (response.ok) {
-            console.log('Operation added successfully');
-            setOperation({ name: '', description: '', amount: '', currency: '' });
-            onAddOperation();  // Refresh the list after adding
-        } else {
-            console.error('Failed to add operation');
-        }
+        onAddOperation(operation);
+        setOperation({ name: '', description: '', amount: '', currency: '' });
     };
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" value={operation.name} onChange={e => setOperation({ ...operation, name: e.target.value })} placeholder="Name" />
-            <input type="text" value={operation.description} onChange={e => setOperation({ ...operation, description: e.target.value })} placeholder="Description" />
-            <input type="number" value={operation.amount} onChange={e => setOperation({ ...operation, amount: e.target.value })} placeholder="Amount" />
-            <select value={operation.currency} onChange={e => setOperation({ ...operation, currency: e.target.value })}>
+            <input type="text" name="name" value={operation.name} onChange={handleInputChange} placeholder="Name" required />
+            <input type="text" name="description" value={operation.description} onChange={handleInputChange} placeholder="Description" />
+            <input type="number" name="amount" value={operation.amount} onChange={handleInputChange} placeholder="Amount" required />
+            <select name="currency" value={operation.currency} onChange={handleInputChange} required>
                 <option value="">Select Currency</option>
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
+                <option value="CZK">CZK</option>
             </select>
             <button type="submit">Add Operation</button>
         </form>
