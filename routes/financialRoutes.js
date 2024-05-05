@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     res.json(FinancialOperations.getAll());  // Use DAO to get all operations
 });
 
-// Add a new financial operation
+// Add a new financial operation(At least in theory)
 router.post('/', (req, res) => {
     const { name, description, time, amount, currency } = req.body;
     if (!name || !amount || !currency) {
