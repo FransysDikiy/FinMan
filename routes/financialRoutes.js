@@ -9,11 +9,11 @@ router.get('/', (req, res) => {
 
 // Add a new financial operation(At least in theory)
 router.post('/', (req, res) => {
-    const { name, description, time, amount, currency } = req.body;
+    const { name, description, amount, currency } = req.body;
     if (!name || !amount || !currency) {
         return res.status(400).json({ error: 'Name, amount, and currency are required' });
     }
-    const newOperation = { name, description, time, amount, currency };
+    const newOperation = { name, description, amount, currency };
     const addedOperation = FinancialOperations.add(newOperation);  // Use DAO to add operation
     res.status(201).json(addedOperation);
 });
