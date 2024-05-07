@@ -33,7 +33,7 @@ function OperationsForm({ onAddOperation }) {
                 <option value="EUR">EUR</option>
                 <option value="CZK">CZK</option>
             </select>
-            <button type="submit">Add Operation</button>
+            <button type="button" onClick={onAddOperation}>Add Operation</button>
         </form>
     );
 }
